@@ -55,16 +55,26 @@ public class CustomerService {
         return customer1;
     }
 
-    public void useCoupon(Integer customerId ,String couponCode){
+    public void useCoupon(Integer customerId,String couponCode){
+        Customer customer = customerreposetry.findCustomerByCustomerId(customerId);
         Coupon coupon = couponreposetry.findCouponByCouponCode(couponCode);
-        Customer customers = customerreposetry.findCustomerByCustomerId(customerId);
-        if(customers == null){
+        System.out.println(coupon);
+        if(customer == null){
             throw new ApiException("Customer not found");
         }
-       else if(coupon == null){
-           throw new ApiException("Coupon not found");
+        else if(coupon == null){
+            throw new ApiException("Coupon not found");
         }
-        System.out.println("hhi");
+        else if(coupon.getStatus().equals("used")){
+            throw new ApiException("Coupon already used");
+        }
+        else {
+           double newBalance = customer.getCustomerBalance() + coupon.getCouponPrice();
+            customer.setCustomerBalance(newBalance);
+            coupon.setStatus("used");
+            couponreposetry.save(coupon);
+            customerreposetry.save(customer);
+        }
     }
 
     public void buyProduct(Integer customerId ,String productName){

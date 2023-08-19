@@ -44,8 +44,8 @@ public class CustomerControoler {
     }
 
 
-    @GetMapping("/usecoupon/{customerId}/{couponId}")
-    public ResponseEntity useCoupon( @PathVariable Integer customerId ,String couponCode){
+    @GetMapping("/usecoupon/{customerId}/{couponCode}")
+    public ResponseEntity useCoupon( @PathVariable Integer customerId , @PathVariable String couponCode){
         customerservice.useCoupon(customerId, couponCode);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("successfully used"));
     }
