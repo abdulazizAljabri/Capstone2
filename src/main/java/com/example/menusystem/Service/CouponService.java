@@ -41,20 +41,13 @@ public class CouponService {
         coupons.setCouponPrice(coupon.getCouponPrice());
     }
 
-    public void changeStatus (Integer id){
+    public void endCoupons (Integer id){
         Coupon coupons = couponreposetry.findCouponById(id);
         if(coupons == null){
             throw  new ApiException("Coupon not found");
         }
-        if(coupons.getStatus() == "used"){
-            coupons.setStatus("active");
-            couponreposetry.save(coupons);
-        }
-        else if(coupons.getStatus() == "active"){
-            coupons.setStatus("used");
-            couponreposetry.save(coupons);
-        }
-
+        coupons.setStatus("used");
+        couponreposetry.save(coupons);
     }
 
 }

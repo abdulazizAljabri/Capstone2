@@ -55,8 +55,8 @@ public class CustomerService {
         return customer1;
     }
 
-    public void useCoupon(Integer customerId ,Integer id){
-        Coupon coupon = couponreposetry.findCouponById(id);
+    public void useCoupon(Integer customerId ,String couponCode){
+        Coupon coupon = couponreposetry.findCouponByCouponCode(couponCode);
         Customer customers = customerreposetry.findCustomerByCustomerId(customerId);
         if(customers == null){
             throw new ApiException("Customer not found");
@@ -64,15 +64,7 @@ public class CustomerService {
        else if(coupon == null){
            throw new ApiException("Coupon not found");
         }
-       else if(coupon.getStatus().equals("active")){
-           customers.setCustomerBalance(coupon.getCouponPrice());
-           customerreposetry.save(customers);
-           coupon.setStatus("used");
-           couponreposetry.save(coupon);
-        }
-       else {
-           throw new ApiException("Coupon is used");
-        }
+        System.out.println("hhi");
     }
 
     public void buyProduct(Integer customerId ,String productName){

@@ -37,9 +37,9 @@ public class CouponCotroller {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Coupon updated"));
     }
 
-    @GetMapping("/changestatus/{id}")
-    public ResponseEntity changeStatus(@PathVariable Integer id){
-        couponservice.changeStatus(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Status changed"));
+    @GetMapping("/endcoupons/{id}")
+    public ResponseEntity endCoupons(@PathVariable Integer id){
+        couponservice.endCoupons(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Coupon is ended"));
     }
 }
